@@ -2,6 +2,7 @@ import { validateRequest } from "@/auth";
 import { redirect } from "next/navigation";
 import SessionProvider from "./SessionProvider";
 import Navbar from "./Navbar";
+import MenuBar from "./MenuBar";
 
 export default async function layout({
   children,
@@ -15,7 +16,11 @@ export default async function layout({
     <SessionProvider value={session}>
       <div className="flex min-h-screen flex-col">
         <Navbar />
-        <div className="mx-auto max-w-7xl p-5">{children}</div>
+        <div className="mx-auto flex w-full max-w-6xl grow gap-5 p-5">
+          <MenuBar className="sticky top-[5.25rem] hidden h-fit flex-none rounded-md border bg-card shadow-sm sm:block xl:w-80" />
+          {children}
+        </div>
+        <MenuBar className="sticky bottom-0 flex w-full justify-center gap-5 border-t bg-card p-3 sm:hidden" />
       </div>
     </SessionProvider>
   );

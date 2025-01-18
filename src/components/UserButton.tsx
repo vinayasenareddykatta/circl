@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "@/app/(main)/SessionProvider";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -29,10 +29,6 @@ export default function UserButton({ className }: UserButtonProps) {
   const { user } = useSession();
   const { theme, setTheme } = useTheme();
 
-  const handleThemeChange = (theme: "system" | "light" | "dark") => {
-    setTheme(theme);
-  };
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -50,7 +46,7 @@ export default function UserButton({ className }: UserButtonProps) {
         </Link>
 
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger >
+          <DropdownMenuSubTrigger>
             <Monitor className="mr-2 size-4" />
             Theme
           </DropdownMenuSubTrigger>
