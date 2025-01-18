@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import avatarPlaceholder from "@/assets/images/avatar.png"
+import avatarPlaceholder from "@/assets/images/avatar.png";
 import { cn } from "@/lib/utils";
 
 interface UserAvatarProps {
@@ -20,7 +20,7 @@ export default function UserAvatar({
       src={avatarUrl || avatarPlaceholder}
       alt="user avatar"
       className={cn(
-        "h-fir aspect-square flex-none rounded-full bg-secondary object-cover",
+        "aspect-square h-fit flex-none rounded-full bg-secondary object-cover",
         className,
       )}
       width={size}
