@@ -7,8 +7,9 @@ import { NextRequest } from "next/server";
 export async function GET(req: NextRequest) {
   try {
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
-    await new Promise((r) => setTimeout(r, 2000)); //ToDo remove
     const pageSize = 10;
+
+    await new Promise((r) => setTimeout(r, 2000)); //ToDo remove
 
     const { user } = await validateRequest();
 

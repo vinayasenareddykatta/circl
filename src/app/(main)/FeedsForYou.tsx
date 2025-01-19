@@ -8,6 +8,7 @@ import Post from "@/components/posts/Post";
 import { PostPage } from "@/lib/types";
 
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
+import PostSkeleton from "@/components/posts/PostSkeleton";
 
 export default function FeedsForYou() {
   const {
@@ -33,9 +34,14 @@ export default function FeedsForYou() {
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 
   if (status === "pending") {
-    return <Loader2 className="mx-auto animate-spin" />;
+    return <PostSkeleton />;
   }
 
+  if (status === "success" && !posts.length && !hasNextPage) {
+    return (
+      <p className="text-center text-muted-foreground">No Posts Yet!!!!!</p>
+    );
+  }
   if (status === "error") {
     return (
       <p className="text-center text-destructive">
