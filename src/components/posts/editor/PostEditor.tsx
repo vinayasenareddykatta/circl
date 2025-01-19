@@ -33,9 +33,9 @@ export default function PostEditor() {
   }
 
   return (
-    <div className="flex flex-col gap-5 rounded-md bg-card p-5 shadow-md">
+    <div className="flex flex-col gap-5 rounded-md border bg-card p-5 shadow-sm">
       <div className="flex gap-5">
-        <UserAvatar avatarUrl={user?.avatarUrl} className="hidden sm:inline" />
+        <UserAvatar avatarUrl={user?.avatarUrl} className="sm:inline" />
         <EditorContent
           editor={editor}
           className="max-h-[20rem] w-full overflow-y-auto rounded-md bg-slate-50 px-5 py-3"

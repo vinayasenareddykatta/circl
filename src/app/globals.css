@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
 }
 
 @layer base {
@@ -71,4 +71,33 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* custom scroll bar */
+/* Style the scrollbar itself */
+::-webkit-scrollbar {
+  width: 8px; /* Horizontal scrollbar height or vertical scrollbar width */
+  height: 8px; /* For horizontal scrollbar */
+}
+
+/* Style the track (the part the thumb slides within) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light gray background */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Style the thumb (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Dark gray thumb */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* On hover, change the thumb color */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker gray when hovered */
+}
+
+/* Optional: Style the corner of the scrollbar */
+::-webkit-scrollbar-corner {
+  background: #f1f1f1;
 }
