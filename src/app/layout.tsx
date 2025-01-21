@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-slate-50`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-slate-50 dark:bg-slate-900`}
       >
         <ReactQueryProvider>
           <ThemeProvider
