@@ -56,7 +56,7 @@ export default function FeedsForYou() {
       className="space-y-0"
     >
       {posts.map((post) => (
-        <Post key={post.id} post={post} />
+        <Post key={post?.id} post={post} />
       ))}
 
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
