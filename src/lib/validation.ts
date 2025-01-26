@@ -18,12 +18,17 @@ export const loginSchema = z.object({
   password: requiredString,
 });
 
-export type LoginValues = z.infer<typeof loginSchema>; 
-
+export type LoginValues = z.infer<typeof loginSchema>;
 
 export const createPostSchema = z.object({
   content: requiredString,
-}); 
+});
 
 export type CreatePostValues = z.infer<typeof createPostSchema>;
 
+export const updateUserProfileSchema = z.object({
+  displayName: requiredString,
+  bio: z.string().max(1000, "Must be at most 1000 characters"),
+});
+
+export type UpdateUserProfileValues = z.infer<typeof updateUserProfileSchema>;

@@ -14,6 +14,7 @@ export default function LoadingButton({
 }: LoadingButtonProps) {
   return (
     <Button
+    size="sm"
       disabled={loading || disabled}
       className={cn("", className)}
       {...props}
