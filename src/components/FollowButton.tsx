@@ -43,7 +43,7 @@ export default function FollowButton({
     },
 
     onError(error, variables, context) {
-      queryClient.setQueryData(queryKey, (context as any)?.previousState);
+      queryClient.setQueryData(queryKey, (context)?.previousState);
       console.error(error);
       toast({
         description: "Failed to follow/unfollow user, please try again",

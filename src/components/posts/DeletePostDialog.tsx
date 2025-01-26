@@ -26,7 +26,7 @@ export default function DeletePostDialog({
 
   function handleOpenChange(open: boolean) {
     if (!open || !mutation.isPending) {
-      onClose;
+      onClose();
     }
   }
 

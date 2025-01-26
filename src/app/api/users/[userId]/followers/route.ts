@@ -4,9 +4,10 @@ import { FollowerInfo } from "@/lib/types";
 
 export async function GET(
   req: Request,
-  { params: { userId } }: { params: { userId: string } },
+  context: { params: Promise<{ userId: string }> },
 ) {
   try {
+    const params = await context.params;
     const { user: loggedInUser } = await validateRequest();
 
     if (!loggedInUser) {
@@ -14,7 +15,7 @@ export async function GET(
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: userId },
+      where: { id: params.userId },
       select: {
         followers: {
           where: {
@@ -51,9 +52,10 @@ export async function GET(
 // Post
 export async function POST(
   req: Request,
-  { params: { userId } }: { params: { userId: string } },
+  context: { params: Promise<{ userId: string }> },
 ) {
   try {
+    const params = await context.params;
     const { user: loggedInUser } = await validateRequest();
 
     if (!loggedInUser) {
@@ -64,12 +66,12 @@ export async function POST(
       where: {
         followerId_followingId: {
           followerId: loggedInUser.id,
-          followingId: userId,
+          followingId: params.userId,
         },
       },
       create: {
         followerId: loggedInUser.id,
-        followingId: userId,
+        followingId: params.userId,
       },
       update: {},
     });
@@ -83,9 +85,10 @@ export async function POST(
 
 export async function DELETE(
   req: Request,
-  { params: { userId } }: { params: { userId: string } },
+  context: { params: Promise<{ userId: string }> },
 ) {
   try {
+    const params = await context.params;
     const { user: loggedInUser } = await validateRequest();
 
     if (!loggedInUser) {
@@ -95,7 +98,7 @@ export async function DELETE(
     await prisma.follow.deleteMany({
       where: {
         followerId: loggedInUser.id,
-        followingId: userId,
+        followingId: params.userId,
       },
     });
 

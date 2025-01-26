@@ -1,16 +1,19 @@
 "use client";
 
+import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
+import Post from "@/components/posts/Post";
+import PostSkeleton from "@/components/posts/PostSkeleton";
+
 import kyInstance from "@/lib/ky";
+import { PostPage } from "@/lib/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 
-import Post from "@/components/posts/Post";
-import { PostPage } from "@/lib/types";
+interface UserPostsProps {
+  userId: string;
+}
 
-import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
-import PostSkeleton from "@/components/posts/PostSkeleton";
-
-export default function FeedsForYou() {
+export default function UserPosts({ userId }: UserPostsProps) {
   const {
     data,
     fetchNextPage,
@@ -19,11 +22,11 @@ export default function FeedsForYou() {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["post-feed", "for-you"],
+    queryKey: ["post-feed", "user-posts", userId],
     queryFn: ({ pageParam }) =>
       kyInstance
         .get(
-          "/api/posts/for-you",
+          `/api/users/${userId}/posts`,
           pageParam ? { searchParams: { cursor: pageParam } } : {},
         )
         .json<PostPage>(),
@@ -39,26 +42,28 @@ export default function FeedsForYou() {
 
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
-      <p className="text-center text-muted-foreground">No Posts Yet!!!!!</p>
+      <p className="text-center text-muted-foreground">
+        This user hasn&apos;t posted anything yet.
+      </p>
     );
   }
+
   if (status === "error") {
     return (
       <p className="text-center text-destructive">
-        An error Occured while loading posts.
+        An error occurred while loading posts.
       </p>
     );
   }
 
   return (
     <InfiniteScrollContainer
+      className=""
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
-      className="space-y-0"
     >
       {posts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
-
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>
   );
