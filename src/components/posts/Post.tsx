@@ -9,6 +9,8 @@ import { useSession } from "@/app/(main)/SessionProvider";
 import PostMoreButton from "./PostMoreButton";
 import Linkify from "../Linkify";
 
+import PostGallery from "./PostGallery";
+
 interface PostProps {
   post: PostData;
 }
@@ -17,8 +19,8 @@ export default function Post({ post }: PostProps) {
   const { user } = useSession();
 
   return (
-    <article className="group/post space-y-3 rounded-md border bg-card p-5 shadow-sm">
-      <div className="flex items-start justify-between">
+    <article className="group/post space-y-3 rounded-md border bg-card shadow-sm">
+      <div className="flex items-start justify-between p-4">
         <div className="flex flex-wrap gap-3">
           <Link href={`/users/${post.user.username}`}>
             <UserAvatar avatarUrl={post.user.avatarUrl} />
@@ -46,8 +48,13 @@ export default function Post({ post }: PostProps) {
         )}
       </div>
       <Linkify>
-        <div className="whitespace-pre-line break-words">{post.content}</div>
+        <div className="whitespace-pre-line break-words px-4">
+          {post.content}
+        </div>
       </Linkify>
+      {!!post.attachments.length && (
+        <PostGallery attachments={post.attachments} />
+      )}
     </article>
   );
 }

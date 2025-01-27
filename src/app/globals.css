@@ -101,3 +101,20 @@ body {
 ::-webkit-scrollbar-corner {
   background: #f1f1f1;
 }
+
+
+.my-grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+  height: 300px;
+
+  height: fit-content;
+}
+
+.my-grid img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;  
+ 
+}
