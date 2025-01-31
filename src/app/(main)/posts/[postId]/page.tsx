@@ -6,6 +6,7 @@ import UserAvatar from "@/components/UserAvatar";
 import prisma from "@/lib/prisma";
 import { getPostDataInclude, UserData } from "@/lib/types";
 import { Loader2 } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -28,7 +29,12 @@ const getPost = cache(async (postId: string, loggedInUserId: string) => {
   return post;
 });
 
-export async function generateMetaData({ params: { postId } }: PageProps) {
+// export async function generateMetaData({ params: { postId } }: PageProps) {
+export async function generateMetadata(context: {
+  params: Promise<{ postId: string }>;
+}): Promise<Metadata> {
+  const params = await context.params;
+  const { postId } = params;
   const { user } = await validateRequest();
   if (!user) return {};
 
