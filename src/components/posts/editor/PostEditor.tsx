@@ -15,6 +15,7 @@ import { ImageIcon, Loader2, X } from "lucide-react";
 import { useRef } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useDropzone } from "@uploadthing/react";
 
 export default function PostEditor() {
   const { user } = useSession();
@@ -28,6 +29,15 @@ export default function PostEditor() {
     removeAttachment,
     reset: resetMediaUploads,
   } = useMediaUpload();
+
+  // drag and drop
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: startUpload,
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { onClick, ...rootProps } = getRootProps();
 
   const editor = useEditor({
     extensions: [
@@ -62,14 +72,31 @@ export default function PostEditor() {
     );
   }
 
+  function onPaste(
+    event: React.ClipboardEvent<HTMLInputElement>,
+  ) {
+    if (!event.clipboardData) return;
+    const files = Array.from(event.clipboardData.items)
+      .filter((item) => item.kind === "file")
+      .map((item) => item.getAsFile()) as File[];
+    startUpload(files);
+  }
+
   return (
     <div className="flex flex-col gap-5 rounded-md border bg-card p-5 shadow-sm">
       <div className="flex gap-5">
         <UserAvatar avatarUrl={user?.avatarUrl} className="sm:inline" />
-        <EditorContent
-          editor={editor}
-          className="max-h-[20rem] w-full overflow-y-auto rounded-md bg-slate-50 px-5 py-3"
-        />
+        <div {...rootProps} className="w-full">
+          <EditorContent
+            editor={editor}
+            className={cn(
+              "max-h-[20rem] w-full overflow-y-auto rounded-md bg-slate-50 px-5 py-3",
+              isDragActive && "bg-slate-100 outline-dashed",
+            )}
+            onPaste={onPaste}
+          />
+          <input {...getInputProps()} />
+        </div>
       </div>
       {!!attachments.length && (
         <AttachmentPreviews

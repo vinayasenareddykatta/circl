@@ -97,9 +97,11 @@ function MediaPreview({ media }: MediaPreviewProps) {
     return (
       <div className="group relative h-full w-full overflow-hidden">
         <Image
+          priority={true}
           src={media.url}
           alt={"Post Image"}
           fill
+          sizes="100vw"
           className="object-cover brightness-75 transition-all duration-300 group-hover:scale-150"
         />
       </div>
