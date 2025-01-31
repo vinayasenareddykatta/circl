@@ -13,7 +13,7 @@ import { notFound } from "next/navigation";
 import { cache, Suspense } from "react";
 
 interface PageProps {
-  params: { postId: string };
+  params: Promise<{ postId: string }>;
 }
 
 const getPost = cache(async (postId: string, loggedInUserId: string) => {
@@ -44,7 +44,9 @@ export async function generateMetadata(context: {
   };
 }
 
-export default async function Page({ params: { postId } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const resolvedParams = await params;
+  const { postId } = resolvedParams;
   const { user } = await validateRequest();
 
   if (!user) {
