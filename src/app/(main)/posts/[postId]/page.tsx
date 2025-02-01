@@ -56,11 +56,11 @@ export default async function Page({ params }: PageProps) {
   const post = await getPost(postId, user.id);
 
   return (
-    <main className="flex w-full min-w-0 gap-5">
+    <main className="flex w-full min-w-0 ">
       <div className="w-full">
         <Post post={post} />
       </div>
-      <div className="sticky hidden h-fit w-64 flex-none space-y-5 overflow-hidden rounded-md border md:block">
+      <div className="sticky hidden h-fit w-64 flex-none overflow-hidden rounded-md border md:block">
         <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
           <UserInfoSidebar user={post.user} />
         </Suspense>

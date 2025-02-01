@@ -11,6 +11,7 @@ import Linkify from "../Linkify";
 
 import PostGallery from "./PostGallery";
 import LikeButton from "./LikeButton";
+import BookmarkButton from "./BookmarkButton";
 
 interface PostProps {
   post: PostData;
@@ -20,9 +21,9 @@ export default function Post({ post }: PostProps) {
   const { user } = useSession();
 
   return (
-    <article className="group/post space-y-1 rounded-md border bg-card shadow-sm">
+    <article className="group/post space-y-0 rounded-md border bg-card shadow-sm">
       <div className="flex items-start justify-between p-4">
-        <div className="flex flex-wrap gap-3">
+        <div className="gap- flex flex-wrap">
           <Link href={`/users/${post.user.username}`}>
             <UserAvatar avatarUrl={post.user.avatarUrl} />
           </Link>
@@ -49,7 +50,7 @@ export default function Post({ post }: PostProps) {
         )}
       </div>
       <Linkify>
-        <div className="whitespace-pre-line break-words px-4">
+        <div className="whitespace-pre-line break-words px-4 pb-2">
           {post.content}
         </div>
       </Linkify>
@@ -57,10 +58,23 @@ export default function Post({ post }: PostProps) {
         <PostGallery attachments={post.attachments} />
       )}
       <hr className="h-1/3" />
-      <LikeButton postId={post.id} initialState={{
-        likes: post._count.likes,
-        isLikedByUser: post.likes.some(({ userId }) => userId === user.id),
-      }} />
+      <div className="flex items-center justify-between px-2 py-1">
+        <LikeButton
+          postId={post.id}
+          initialState={{
+            likes: post._count.likes,
+            isLikedByUser: post.likes.some(({ userId }) => userId === user.id),
+          }}
+        />
+        <BookmarkButton
+          postId={post.id}
+          initialState={{
+            isBookmarkedByUser: post.bookmarks.some(
+              ({ userId }) => userId === user.id,
+            ),
+          }}
+        />
+      </div>
     </article>
   );
 }

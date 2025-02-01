@@ -13,7 +13,7 @@ import FollowButton from "./FollowButton";
 
 export default function TrendsSidebar() {
   return (
-    <div className="sticky top-[5.25rem] hidden h-fit w-72 flex-none space-y-5 rounded-md md:block">
+    <div className="sticky top-[5.25rem] hidden h-fit w-72 flex-none space-y-3 rounded-md md:block">
       <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
         <WhoToFollow />
         <TrendingTopics />

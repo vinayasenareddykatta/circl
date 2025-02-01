@@ -21,7 +21,7 @@ export default function InfiniteScrollContainer({
   });
 
   return (
-    <div className={cn("flex flex-col gap-5", className)}>
+    <div className={cn("flex flex-col gap-3", className)}>
       {children}
       <div ref={ref} />
     </div>
