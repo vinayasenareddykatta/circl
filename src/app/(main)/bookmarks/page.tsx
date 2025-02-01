@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Bookmarks from "./Bookmarks";
 import TrendsSidebar from "@/components/TrendsSidebar";
 
-export const metaData: Metadata = { title: "Bookmarks" };
+export const metadata: Metadata = { title: "Bookmarks" };
 
 export default function Page() {
   return (
