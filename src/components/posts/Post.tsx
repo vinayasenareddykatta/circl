@@ -10,6 +10,7 @@ import PostMoreButton from "./PostMoreButton";
 import Linkify from "../Linkify";
 
 import PostGallery from "./PostGallery";
+import LikeButton from "./LikeButton";
 
 interface PostProps {
   post: PostData;
@@ -19,7 +20,7 @@ export default function Post({ post }: PostProps) {
   const { user } = useSession();
 
   return (
-    <article className="group/post space-y-3 rounded-md border bg-card shadow-sm">
+    <article className="group/post space-y-1 rounded-md border bg-card shadow-sm">
       <div className="flex items-start justify-between p-4">
         <div className="flex flex-wrap gap-3">
           <Link href={`/users/${post.user.username}`}>
@@ -55,6 +56,11 @@ export default function Post({ post }: PostProps) {
       {!!post.attachments.length && (
         <PostGallery attachments={post.attachments} />
       )}
+      <hr className="h-1/3" />
+      <LikeButton postId={post.id} initialState={{
+        likes: post._count.likes,
+        isLikedByUser: post.likes.some(({ userId }) => userId === user.id),
+      }} />
     </article>
   );
 }
