@@ -9,8 +9,6 @@ export async function GET(req: NextRequest) {
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
     const pageSize = 10;
 
-    await new Promise((r) => setTimeout(r, 1000)); //ToDo remove
-
     const { user } = await validateRequest();
 
     if (!user) {
