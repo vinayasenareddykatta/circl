@@ -13,7 +13,7 @@ import { notFound } from "next/navigation";
 import { cache, Suspense } from "react";
 
 interface PageProps {
-  params: Promise<{ postId: string }>;
+  params: { postId: string };
 }
 
 const getPost = cache(async (postId: string, loggedInUserId: string) => {
@@ -44,9 +44,7 @@ export async function generateMetadata(context: {
   };
 }
 
-export default async function Page({ params }: PageProps) {
-  const resolvedParams = await params;
-  const { postId } = resolvedParams;
+export default async function Page({ params: { postId } }: PageProps) {
   const { user } = await validateRequest();
 
   if (!user) {
@@ -56,11 +54,11 @@ export default async function Page({ params }: PageProps) {
   const post = await getPost(postId, user.id);
 
   return (
-    <main className="flex w-full min-w-0 ">
+    <main className="flex w-full min-w-0 gap-5">
       <div className="w-full">
         <Post post={post} />
       </div>
-      <div className="sticky hidden h-fit w-64 flex-none overflow-hidden rounded-md border md:block">
+      <div className="sticky hidden h-fit w-64 flex-none space-y-5 overflow-hidden rounded-md border md:block">
         <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
           <UserInfoSidebar user={post.user} />
         </Suspense>
