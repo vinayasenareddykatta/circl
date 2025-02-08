@@ -7,7 +7,7 @@
   ],
   "builds": [
     {
-      "src": "pages/**/*.ts",
+      "src": "**/*.{ts,tsx}",
       "use": "@vercel/node",
       "config": {
         "typescript": {
