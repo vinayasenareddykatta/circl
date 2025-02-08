@@ -12,10 +12,6 @@ import { notFound } from "next/navigation";
 
 import { cache, Suspense } from "react";
 
-interface PageProps {
-  params: { postId: string };
-}
-
 const getPost = cache(async (postId: string, loggedInUserId: string) => {
   const post = await prisma.post.findUnique({
     where: {
@@ -44,14 +40,18 @@ export async function generateMetadata(context: {
   };
 }
 
-export default async function Page({ params: { postId } }: PageProps) {
+export default async function PostPage(context: {
+  params: Promise<{ postId: string }>;
+}) {
+  const params = await context.params;
+
   const { user } = await validateRequest();
 
   if (!user) {
     return <p className="">You are not authorized to view this page.</p>;
   }
 
-  const post = await getPost(postId, user.id);
+  const post = await getPost(params.postId, user.id);
 
   return (
     <main className="flex w-full min-w-0 gap-5">

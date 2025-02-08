@@ -4,7 +4,7 @@ import TrendsSidebar from "@/components/TrendsSidebar";
 
 export const metadata: Metadata = { title: "Bookmarks" };
 
-export default function Page() {
+export default function BookmarkPage() {
   return (
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-2">

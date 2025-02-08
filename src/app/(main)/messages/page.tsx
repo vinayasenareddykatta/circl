@@ -6,6 +6,6 @@ export const metadata: Metadata = {
   description: "Chat with other users",
 };
 
-export default function Page() {
+export default function MessagesPage() {
   return <Chat />;
 }
