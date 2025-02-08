@@ -5,9 +5,7 @@ const nextConfig: NextConfig = {
   experimental: {
     staleTimes: { dynamic: 30 },
   },
-  typescript: {
-    ignoreBuildErrors: true, // 🚨 Suppresses TypeScript errors during build
-  },
+
   serverExternalPackages: ["@node-rs/argon2"],
 
   images: {
