@@ -90,7 +90,7 @@ const getTrendingTopics = unstable_cache(
           ORDER BY count DESC, hashtag ASC
           LIMIT 50
       `;
-
+    console.log({ result });
     return result.map((row) => ({
       hashtag: row.hashtag,
       count: Number(row.count),
@@ -104,7 +104,7 @@ const getTrendingTopics = unstable_cache(
 
 async function TrendingTopics() {
   const topics = await getTrendingTopics();
-
+  console.log(topics);
   return (
     <div className="space-y-5 rounded-md border bg-card p-5 shadow-sm">
       <div className="text-xl font-semibold">Trending topics</div>
