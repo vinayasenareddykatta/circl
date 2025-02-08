@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import { NotificationType } from "@prisma/client";
 import { Heart, MessageCircle, User2 } from "lucide-react";
 import Link from "next/link";
-import { JSX } from "react";
 
 interface NotificationProps {
   notification: NotificationData;
@@ -13,7 +12,7 @@ interface NotificationProps {
 export default function Notification({ notification }: NotificationProps) {
   const notificationTypeMap: Record<
     NotificationType,
-    { message: string; icon: JSX.Element; href: string }
+    { message: string; icon: React.ReactNode; href: string }
   > = {
     FOLLOW: {
       message: `${notification.issuer.displayName} followed you`,
