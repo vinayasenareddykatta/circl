@@ -5,7 +5,15 @@
       "schedule": "0 0 * * *"
     }
   ],
-  "typescript": {
-    "ignoreBuildErrors": true
-  }
+  "builds": [
+    {
+      "src": "pages/**/*.ts",
+      "use": "@vercel/node",
+      "config": {
+        "typescript": {
+          "ignoreBuildErrors": true
+        }
+      }
+    }
+  ]
 }
